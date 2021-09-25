@@ -1,0 +1,270 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Movie Backend",
+    "version": "1.0",
+    "contact": {
+      "name": "Movie Backend",
+      "url": "https://github.com/dedensmkn4/movie-backend",
+      "email": "farhanindo21@gmail.com"
+    }
+  },
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/omdb": {
+      "get": {
+        "operationId": "OmdbService_FindById",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoSearchDetailResponse"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "OmdbService"
+        ]
+      }
+    },
+    "/omdb/all": {
+      "get": {
+        "operationId": "OmdbService_FindAll",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoSearchPaginatedResponse"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "searchWord",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "OmdbService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "protoRating": {
+      "type": "object",
+      "properties": {
+        "source": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "protoSearchDetailResponse": {
+      "type": "object",
+      "properties": {
+        "rated": {
+          "type": "string"
+        },
+        "released": {
+          "type": "string"
+        },
+        "runtime": {
+          "type": "string"
+        },
+        "genre": {
+          "type": "string"
+        },
+        "director": {
+          "type": "string"
+        },
+        "writer": {
+          "type": "string"
+        },
+        "actors": {
+          "type": "string"
+        },
+        "plot": {
+          "type": "string"
+        },
+        "language": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "awards": {
+          "type": "string"
+        },
+        "ratings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protoRating"
+          }
+        },
+        "metaScore": {
+          "type": "string"
+        },
+        "imdbRating": {
+          "type": "string"
+        },
+        "imdbVotes": {
+          "type": "string"
+        },
+        "dvd": {
+          "type": "string"
+        },
+        "boxOffice": {
+          "type": "string"
+        },
+        "production": {
+          "type": "string"
+        },
+        "website": {
+          "type": "string"
+        },
+        "response": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "year": {
+          "type": "string"
+        },
+        "imdbID": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "poster": {
+          "type": "string"
+        }
+      }
+    },
+    "protoSearchPaginatedResponse": {
+      "type": "object",
+      "properties": {
+        "search": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protoSearchResponse"
+          }
+        },
+        "totalResults": {
+          "type": "string"
+        },
+        "response": {
+          "type": "string"
+        }
+      }
+    },
+    "protoSearchResponse": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "year": {
+          "type": "string"
+        },
+        "imdbID": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "poster": {
+          "type": "string"
+        }
+      }
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "type_url": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "runtimeError": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    }
+  }
+}

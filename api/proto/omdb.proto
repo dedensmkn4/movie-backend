@@ -1,0 +1,76 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "github.com/dedensmkn4/movie-backend/internal/pb";
+
+import "google/api/annotations.proto";
+
+message SearchRequest {
+  string searchWord = 1;
+  int32 page = 2;
+}
+
+message SearchPaginatedResponse {
+  repeated SearchResponse search = 1;
+  string totalResults = 2;
+  string response = 3;
+}
+
+message SearchResponse {
+  string title = 1;
+  string year = 2;
+  string imdbID = 3;
+  string type = 4;
+  string poster = 5;
+}
+
+message GetDetailRequest {
+  string id = 1;
+}
+
+message Rating {
+  string source = 1;
+  string value = 2;
+}
+
+message SearchDetailResponse {
+  string rated = 1;
+  string released = 2;
+  string runtime = 3;
+  string genre = 4;
+  string director = 5;
+  string writer = 6;
+  string actors = 7;
+  string plot = 8;
+  string language = 9;
+  string country = 10;
+  string awards = 11;
+  repeated Rating ratings = 12;
+  string metaScore = 13;
+  string imdbRating = 14;
+  string imdbVotes = 15;
+  string dvd = 16;
+  string boxOffice = 17;
+  string production = 18;
+  string website = 19;
+  string response = 20;
+  string title = 21;
+  string year = 22;
+  string imdbID = 23;
+  string type = 24;
+  string poster = 25;
+}
+
+
+service OmdbService {
+  rpc FindAll (SearchRequest) returns (SearchPaginatedResponse) {
+    option(google.api.http) = {
+      get : "/omdb/all"
+    };
+  }
+  rpc FindById (GetDetailRequest) returns (SearchDetailResponse) {
+    option(google.api.http) = {
+      get : "/omdb"
+    };
+  }
+}
