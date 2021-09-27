@@ -1,4 +1,3 @@
-
 .PHONY: generate
 generate:
 	protoc -I=api/proto \
@@ -11,6 +10,9 @@ generate:
 		--grpc-gateway_opt=paths=source_relative \
 		api/proto/*.proto
 
+.PHONY: test
+test:
+	go test -v ./... -cover
 
 .PHONY: build
 build:
